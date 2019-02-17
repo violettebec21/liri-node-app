@@ -117,8 +117,27 @@ function runMovieThis() {
 };
 
 function runDoWhatItSays() {
+    //Read random.txt file contents for the command
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (!error);
+        //use .split method using comma as separator 
+        //need to also get the values at the array to determine 1) command to run 2) item in index 1 of array for artist/movie/song to grab
+        var txt = data.split(',');
+        console.log(data.split(','));
+        itemName = txt[1]
+        if (txt[0] = 'spotify-this-song') {
+            runSpotify();
 
+        } else if (txt[0] = 'concert-this') {
+            runConcertThis();
+
+        }
+        else if (txt[0] = 'movie-this') {
+            runMovieThis();
+        }
+    });
 }
+
 
 // // Append command responses to log.txt, print to the console
 //   // divider will be used as a spacer between the tv data we print in log.txt
