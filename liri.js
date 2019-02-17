@@ -7,6 +7,8 @@ var keys = require("./keys.js");
 
 //pull in other dependencies
 var axios = require("axios");
+var moment = require("moment");
+
 // var moment = require("moment");
 // var fs = require("fs");
 
@@ -69,19 +71,23 @@ function runConcertThis() {
     var concertArtist = input || "please enter a valid artist";
     var concertQueryURL = "https://rest.bandsintown.com/artists/" + concertArtist + "/events?app_id=codingbootcamp";
 
-    //WORK ON GETTING RESPONSE DATA
-    axios.get(concertQueryURL)
-        .then(
-            function (response) {
-
-                // response = JSON.stringify(response.data);
-                var res = JSON.stringify(response.data)
-                for (let i = 0; i < 2; i++) {
-                    console.log("response: " + response.data);
-                    console.log("response: " + res);
-
-                }
-            })
+    axios.get(concertQueryURL).then(
+        function (response) {
+            //console log out data if response IS NOT undefined
+            if (response.data[0].venue != undefined) {
+                // console.log(response.data)
+                console.log("Name of venue: " + response.data[0].venue.name);
+                console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.region);
+                var dateTime = moment(response.data[0].datetime);
+                console.log("Date of the Event: " + dateTime.format("dddd, MMMM Do YYYY"));
+            }
+            else {
+                console.log("No results found.");
+            }
+        }
+    ).catch(function (error) {
+        console.log(error);
+    });
 }
 
 //OMDB--------------------------------------
