@@ -8,9 +8,7 @@ var keys = require("./keys.js");
 //pull in other dependencies
 var axios = require("axios");
 var moment = require("moment");
-
-// var moment = require("moment");
-// var fs = require("fs");
+var fs = require("fs");
 
 // this allows us to access our API key info
 var spotify = new Spotify(keys.spotify);
@@ -76,10 +74,10 @@ function runConcertThis() {
             //console log out data if response IS NOT undefined
             if (response.data[0].venue != undefined) {
                 // console.log(response.data)
-                console.log("Name of venue: " + response.data[0].venue.name);
-                console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.region);
-                var dateTime = moment(response.data[0].datetime);
-                console.log("Date of the Event: " + dateTime.format("dddd, MMMM Do YYYY"));
+                console.log("Name of venue: " + response.data[0].venue.name); //Name of the venue
+                console.log("Venue location: " + response.data[0].venue.city + ", " + response.data[0].venue.region); //Venue location
+                var dateTime = moment(response.data[0].datetime); //use moment to format this as "MM/DD/YYYY"
+                console.log("Date of the Event: " + dateTime.format("dddd, MMMM Do YYYY"));// Date of the Event
             }
             else {
                 console.log("No results found.");
@@ -117,3 +115,15 @@ function runMovieThis() {
             console.log("Actors: " + response.data.Actors); //Actors in the movie.
         })
 };
+
+function runDoWhatItSays() {
+
+}
+
+// // Append command responses to log.txt, print to the console
+//   // divider will be used as a spacer between the tv data we print in log.txt
+// var divider = "\n------------------------------------------------------------\n\n";
+// fs.appendFile("log.txt", commndResponse + divider, function (err) {
+//     if (err) throw err;
+
+// });
