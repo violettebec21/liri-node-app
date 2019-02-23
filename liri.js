@@ -45,8 +45,8 @@ switch (command) {
 //SPOTIFY function--------------------------------------
 // `node liri.js spotify-this-song '<song name here>'`
 
-function runSpotify() {
-    var query = input || "The Sign Ace of Base";
+function runSpotify(doWhatISayParam) {
+    var query = doWhatISayParam || input || "The Sign Ace of Base";
     // input ? input : "The Sign" ternary operator option 
     //use spotify search from spotify API documentation
     spotify.search({ type: 'track', query: query }, function (err, data) {
@@ -125,24 +125,24 @@ function runDoWhatItSays() {
         var txt = data.split(',');
         console.log(data.split(','));
         itemName = txt[1]
-        if (txt[0] = 'spotify-this-song') {
-            runSpotify();
+        if (txt[0] === 'spotify-this-song') {
+            runSpotify(itemName);
 
-        } else if (txt[0] = 'concert-this') {
+        } else if (txt[0] === 'concert-this') {
             runConcertThis();
 
         }
-        else if (txt[0] = 'movie-this') {
+        else if (txt[0] === 'movie-this') {
             runMovieThis();
         }
     });
 }
 
+//used class activity 11.3.14 for reference to divider code and fs.appendFile to log.txt
+// Append command responses to log.txt, print to the console
+// divider will be used as a spacer between the data we print in log.txt
+var divider = "\n------------------------------------------------------------\n\n";
+fs.appendFile("log.txt", command + input + divider, function (err) {
+    if (err) throw err;
 
-// // Append command responses to log.txt, print to the console
-//   // divider will be used as a spacer between the tv data we print in log.txt
-// var divider = "\n------------------------------------------------------------\n\n";
-// fs.appendFile("log.txt", commndResponse + divider, function (err) {
-//     if (err) throw err;
-
-// });
+});
